@@ -1,3 +1,11 @@
+Nuevo:
+1. Correo electronico habilitado.
+2. Seleccionar un cargo al editar usuarios.
+3. Boton para eliminar usuarios.
+4. Sección de medicamentos (editar, eliminar, nuevo).
+    4.1.- Opciones predifinidas de medicamentos.
+
+Faltantes:
 1. Medicamentos personales por usuario.
 2. Checkbox de recibir alertas.
 3. Colores rojo para la expiración de los medicamentos.
