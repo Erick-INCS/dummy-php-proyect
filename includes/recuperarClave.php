@@ -34,4 +34,5 @@
       $subject,
       $body
     );
+    Header("Location: ../vistas/iniciarsesion.php?msg=" . urldecode("Favor de revisar su correo para recuperar la clave."));
 ?>

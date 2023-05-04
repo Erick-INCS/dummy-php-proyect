@@ -9,3 +9,4 @@ Faltantes:
 1. Medicamentos personales por usuario.
 2. Checkbox de recibir alertas.
 3. Colores rojo para la expiración de los medicamentos.
+4. No correos duplicados.
