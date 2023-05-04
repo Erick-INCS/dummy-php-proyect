@@ -4,6 +4,5 @@ $mail_conf = array(
     'addr' => '@gmail.com',
     'pass' => 'sklcnntm',
     'app_name' => 'Dummy app',
-    'forced_recp' => '6@gmail.com',
 );
 ?>
