@@ -2,27 +2,61 @@
     include('../conexion.php');
     $con = conectar();
 
-    $nombrecomercialMedicamento = $_POST['nombreComercial'];
-    $activoprincipalMedicamento = $_POST['activoprincipalMedicamento'];
-    $loteMedicamento = $_POST['loteMedicamento'];
-    $fechadecaducidadMedicamento = $_POST['fechadecaducidadMedicamento'];
-    $controlMedicamento = $_POST['controlMedicamento'];
-    $cantidadMedicamento = $_POST['cantidadMedicamento'];
-    $idDosis = $_POST['idDosis'];
-    $idPresentacion = $_POST['idPresentacion'];
-    $idClinica = $_POST['idClinica'];
+    $idMedicamento = $_POST['idMedicamento'];
+	$Ingrediente = $_POST['Ingrediente'];
+	$marca = $_POST['marca'];
+	$lote = $_POST['lote'];
+	$Controlado = $_POST['Controlado'];
+	$dosis = $_POST['dosis'];
+	$presentacion = $_POST['presentacion'];
+	$unidades = $_POST['unidades'];
+	$via = $_POST['via'];
+	$caducidad = $_POST['caducidad'];
 
-    $sqlMedicamento = "INSERT medicamentos VALUES(DEFAULT,'$nombrecomercialMedicamento','$activoprincipalMedicamento','$idDosis','$idPresentacion','$controlMedicamento')";
-    $queryMedicamento = mysqli_query($con,$sqlMedicamento);
+    // $consultaMedicamento = "SELECT idMedicamento from medicamentos order by idMedicamento desc limit 1";
+    // $querycuantoscuentoscuentas = mysqli_query($con,$consultaMedicamento);
+    // $idMedicamento = mysqli_fetch_array($querycuantoscuentoscuentas);
 
-    $consultaMedicamento = "SELECT idMedicamento from medicamentos order by idMedicamento desc limit 1";
-    $querycuantoscuentoscuentas = mysqli_query($con,$consultaMedicamento);
-    $idMedicamento = mysqli_fetch_array($querycuantoscuentoscuentas);
+    $sqlMedicamento = "INSERT INTO medicamentos(
+        idMedicamento,
+        activoprincipalMedicamento,
+        controlMedicamento,
+        dosis,
+        idPresentacion,
+        idDosis
+    ) VALUES (
+        DEFAULT,
+        '$Ingrediente',
+        '$Controlado',
+        '$dosis',
+        '$presentacion',
+        '$via'
+    )
+    ";
 
-    $sqlclinicatienemedicamento = "INSERT clinicatienemedicamento VALUES('$idClinica','$idMedicamento[0]','$cantidadMedicamento','$loteMedicamento','$fechadecaducidadMedicamento')";
-    $queryClinicatienemedicamento = mysqli_query($con,$sqlclinicatienemedicamento);
+	$queryMedicamento = mysqli_query($con, $sqlMedicamento);
 
-    if($queryMedicamento && $queryClinicatienemedicamento){
-       header("Location: ../vistas/mostrarMedicamentos.php");
+	$sqlClinica = "INSERT INTO clinicatienemedicamento(
+        idMedicamento,
+        marca,
+        loteMedicamento,
+        cantidadMedicamento,
+        fechadecaducidadMedicamento
+    ) SELECT
+        (SELECT MAX(idMedicamento) from medicamentos),
+        '$marca',
+        '$lote',
+        '$unidades',
+        '$caducidad'
+    ";
+    echo $sqlClinica;
+	$queryClinica = mysqli_query($con, $sqlClinica);
+
+    if($queryMedicamento && $queryClinica){
+        header("Location: ../vistas/mostrarMedicamentos.php");
+    } else {
+        echo var_dump($queryMedicamento);
+        echo '<br>';
+        echo var_dump($queryClinica);
     }
 ?>

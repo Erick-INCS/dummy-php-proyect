@@ -25,37 +25,54 @@ CREATE TABLE presentacion
 	idPresentacion int not null primary key AUTO_INCREMENT,
     nombrePresentacion varchar(100)
 );
-INSERT INTO presentacion VALUES (DEFAULT, "Tableta"), (DEFAULT, "Capsula"), (DEFAULT, "Supositorio"), (DEFAULT, "Pomada"), (DEFAULT, "Crema"), (DEFAULT, "Jarabe");
+
+INSERT INTO presentacion VALUES 
+(DEFAULT, "Tableta"),
+(DEFAULT, "Capsula"),
+(DEFAULT, "Supositorio"),
+(DEFAULT, "Pomada"),
+(DEFAULT, "Crema"),
+(DEFAULT, "Jarabe");
 
 CREATE TABLE dosis
 (
 	idDosis int not null primary key AUTO_INCREMENT,
     nombreDosis varchar(20)
 );
-INSERT INTO dosis VALUES(DEFAULT, "Oral"), (DEFAULT,"Inyectada"), (DEFAULT,"Intravenosa");
+INSERT INTO dosis VALUES
+(DEFAULT, "Oral"),
+(DEFAULT,"Inyectada"),
+(DEFAULT,"Intravenosa");
 
 CREATE TABLE medicamentos
 (
 	idMedicamento int not null primary key AUTO_INCREMENT,
     nombrecomercialMedicamento varchar(100),
     activoprincipalMedicamento varchar(100),
+    dosis varchar(30),
     idDosis int not null,
     idPresentacion int not null,
     controlMedicamento int
 );
 
-INSERT INTO medicamentos VALUES(DEFAULT, "Aspirina", "Ácido acetilsalicilico",1,1,0);
+INSERT INTO medicamentos VALUES
+(DEFAULT, "Aspirina", "Ácido acetilsalicilico", "300 mg", 1, 1,2),
+(DEFAULT, "", "Metformina", "800 mg", 1, 1,2);
 
 CREATE TABLE clinicatienemedicamento
 (
-	idClinica int not null,
+	idClinica int not null default 1,
     idMedicamento int not null,
     cantidadMedicamento int,
 	loteMedicamento varchar(100),
-	fechadecaducidadMedicamento datetime
+    marca varchar(40),
+	fechadecaducidadMedicamento date 
 );
 
-INSERT INTO clinicatienemedicamento VALUES(1,1,40,"1456","31/01/04"), (2,1,34,"34","24/10/10");
+INSERT INTO clinicatienemedicamento VALUES
+(DEFAULT, 1, 20, "1456", "Pfizer", "2025-05-02"),
+(DEFAULT, 2, 15, "34", "Astrazeneca", "2024-12-24")
+;
 
 CREATE TABLE usuarios
 (
@@ -64,14 +81,30 @@ CREATE TABLE usuarios
     cargo varchar(30),
     correo varchar(30),
     claveUsuario varchar(32),
-    expiration_date date,
-    user_role varchar(20)
+    expiration_date date
 );
 
-SELECT nombrecomercialMedicamento, activoprincipalMedicamento, loteMedicamento, fechadecaducidadMedicamento, controlMedicamento, cantidadMedicamento, nombreDosis, nombrePresentacion, nombreClinica FROM clinicatienemedicamento
-INNER JOIN clinicas ON clinicas.idClinica = clinicatienemedicamento.idClinica
-INNER JOIN medicamentos ON medicamentos.idMedicamento = clinicatienemedicamento.idMedicamento
-INNER JOIN dosis ON medicamentos.idDosis = dosis.idDosis
-INNER JOIN presentacion ON medicamentos.idPresentacion = presentacion.idPresentacion;
+INSERT INTO usuarios(correo, claveUsuario, cargo) values ('admin@mail.com', MD5('admin'), 'Administrador');
 
-INSERT INTO usuarios(correo, claveUsuario, user_role) values ('admin@mail.com', MD5('admin'), 'admin');
+/*************/
+SELECT
+    md.idMedicamento,
+    md.nombrecomercialMedicamento,
+    md.activoprincipalMedicamento,
+    md.dosis,
+    cm.loteMedicamento,
+    cm.fechadecaducidadMedicamento,
+    md.controlMedicamento,
+    cm.cantidadMedicamento,
+    cm.marca,
+    d.nombreDosis,
+    p.nombrePresentacion
+FROM
+	clinicatienemedicamento cm
+    INNER JOIN medicamentos md
+    	ON md.idMedicamento = cm.idMedicamento
+    INNER JOIN dosis d
+    	ON md.idDosis = d.idDosis
+    INNER JOIN presentacion p
+    	ON md.idPresentacion = p.idPresentacion
+;

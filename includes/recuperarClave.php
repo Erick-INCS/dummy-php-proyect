@@ -1,5 +1,7 @@
 <?php
   include "../conexion.php";
+  include('mail.php');
+
   $conexion=conectar();
 
   $user=$_POST['usuario'];
@@ -27,23 +29,9 @@
   $subject = "Recuperación de acceso";
   $body = "Hola usuario, a continuación te compartimos tu clave de acceso temporal: " . $tmp_pass;
 
-  if (!isset($config['sendmail_from'])) {
-    ?>
-      <p>El correo electonico no se encuentra configurado, el contenido de esta página muestra lo que se estaría enviando vía correo:</p>
-      <br>
-      <h3><?=$subject?></h3>
-      <p>Email to: <?=$target_mail?></h>
-      <p><?=$body?></h>
-      <br>
-      <br>
-      <br>
-      <a href="../vistas/iniciarsesion.php?msg=<?=urldecode("Favor de revisar su correo para recuperar la clave.")?>">Click aquí para continuar</a>
-    <?php 
-  } else {
-    mail(
+  send_mail(
       $user,
       $subject,
       $body
     );
-  }
 ?>

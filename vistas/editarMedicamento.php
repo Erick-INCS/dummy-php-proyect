@@ -4,20 +4,38 @@
     include('../conexion.php');
     $conn = conectar();
 
-    $idClinica=$_GET['idClinica'];
     $idMedicamento=$_GET['idMedicamento'];
 
+    
     $consultaMedicamentos="
-    SELECT clinicas.idClinica, medicamentos.idMedicamento, donacionClinica, medicamentos.nombrecomercialMedicamento, activoprincipalMedicamento, loteMedicamento, fechadecaducidadMedicamento, controlMedicamento, cantidadMedicamento, nombreDosis, nombrePresentacion, nombreClinica FROM clinicatienemedicamento
-    INNER JOIN clinicas ON clinicas.idClinica = clinicatienemedicamento.idClinica
-    INNER JOIN medicamentos ON medicamentos.idMedicamento = clinicatienemedicamento.idMedicamento
-    INNER JOIN dosis ON medicamentos.idDosis = dosis.idDosis
-    INNER JOIN presentacion ON medicamentos.idPresentacion = presentacion.idPresentacion
-    WHERE clinicatienemedicamento.idClinica = '$idClinica' AND clinicatienemedicamento.idMedicamento = '$idMedicamento'
+    SELECT
+    md.idMedicamento,
+    md.nombrecomercialMedicamento,
+    md.activoprincipalMedicamento,
+    md.dosis,
+    cm.loteMedicamento,
+    cm.fechadecaducidadMedicamento,
+    md.controlMedicamento,
+    cm.cantidadMedicamento,
+    cm.marca,
+    d.idDosis,
+    d.nombreDosis,
+    p.nombrePresentacion,
+    p.idPresentacion
+    FROM
+    clinicatienemedicamento cm
+    INNER JOIN medicamentos md
+    ON md.idMedicamento = cm.idMedicamento
+    INNER JOIN dosis d
+    ON md.idDosis = d.idDosis
+    INNER JOIN presentacion p
+    ON md.idPresentacion = p.idPresentacion 
+    WHERE cm.idMedicamento = '$idMedicamento'
     ";
-
+    
     $cantidadMedicamentos = mysqli_query($conn, $consultaMedicamentos);
     $filaMedicamento = mysqli_fetch_array($cantidadMedicamentos);
+    // echo var_dump($filaMedicamento);
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
@@ -38,103 +56,77 @@
         <div class="div-block-6">
           <?php include( "../includes/menu.php"); ?>
           <div class="contenido div-block-7 w-clearfix">
-            <div class="col-md-3">
-              <form class="" action="../includes/actualizarMedicamento.php" method="post">
-                <h3 class="card-title">Agregar Medicamento</h3>
-                <div class="row">
-                  <input type="hidden" name="idMedicamento" value="<?php echo $filaMedicamento['idMedicamento']?>">
-                  <input type="hidden" name="idClinica" value="<?php echo $filaMedicamento['idClinica']?>">
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="">Nombre Comercial:
-                            <input class="form-control" type="text" name="nombreComercial" value="<?php echo $filaMedicamento['nombrecomercialMedicamento']?>">
-                        </label>
-                    </div>
-                    <div class="col">
-                        <label for="">Activo Principal:
-                            <input class="form-control" type="text" name="activoprincipalMedicamento" value="<?php echo $filaMedicamento['activoprincipalMedicamento']?>">
-                        </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="">Lote:
-                            <input class="form-control" type="text" name="loteMedicamento" value="<?php echo $filaMedicamento['loteMedicamento']?>">
-                        </label>
-                    </div>
-                    <div class="col">
-                        <label for="">Controlado:
-                          <select class="form-select" name="controlMedicamento">
-                            <option value="1">Si</option>
-                            <option value="2">No</option>
+
+
+                    <div class="container-sm">
+                      <h3 class="card-title">Editar Medicamento</h3>
+                      <form action="../includes/actualizarMedicamento.php" method="post" class="row w-100">
+                        <div class="mb-3 col-md-4 col-lg-3">
+                          <input type="hidden" name="idMedicamento" value="<?php echo $filaMedicamento['idMedicamento']?>">
+
+                          <label for="Ingrediente" class="form-label">Ingrediente activo</label>
+                          <input type="text" name="Ingrediente" class="form-control" id="Ingrediente" value="<?=$filaMedicamento['activoprincipalMedicamento']?>" required>
+                        </div>
+                        <div class="mb-3 col-3">
+                          <label for="marca" class="form-label">Marca</label>
+                          <input type="text" name="marca" class="form-control" id="marca" value="<?=$filaMedicamento['marca']?>" required>
+                        </div>
+                        <div class="mb-3 col-2">
+                          <label for="lote" class="form-label">Lote</label>
+                          <input type="text" name="lote" class="form-control" id="lote" value="<?=$filaMedicamento['loteMedicamento']?>" required>
+                        </div>
+                        <div class="mb-3 col-2">
+                          <label for="Controlado" class="form-label">Controlado</label>
+                          <select id="Controlado" class="form-select" name="Controlado" aria-label="Selecciona si es un medicamento controlado." required>
+                            <option <?php if (!isset($filaMedicamento['controlMedicamento'])) echo 'selected'?> value="">-</option>
+                            <option value="1" <?php if ($filaMedicamento['controlMedicamento']==1) echo 'selected'?>>Si</option>
+                            <option value="2" <?php if ($filaMedicamento['controlMedicamento']==2) echo 'selected'?> >No</option>
                           </select>
-                        </label>
+                        </div>
+                        <div class="mb-3 col-2">
+                          <label for="dosis" class="form-label">Dosis</label>
+                          <input type="text" name="dosis" class="form-control" id="dosis" value="<?=$filaMedicamento['dosis']?>" required>
+                        </div>
+                        <div class="mb-3 col-3">
+                          <label for="presentacion" class="form-label">Presentación</label>
+                          <select id="presentacion" class="form-select" name="presentacion" aria-label="Selecciona la presentación." required>
+                            <option <?php if (!isset($filaMedicamento['idPresentacion'])) echo 'selected'?> value="">-</option>
+                            <option value="1" <?php if ($filaMedicamento['idPresentacion']==1) echo 'selected'?>>Tableta</option>
+                            <option value="2" <?php if ($filaMedicamento['idPresentacion']==2) echo 'selected'?> >Capsula</option>
+                            <option value="3" <?php if ($filaMedicamento['idPresentacion']==3) echo 'selected'?> >Supositorio</option>
+                            <option value="4" <?php if ($filaMedicamento['idPresentacion']==4) echo 'selected'?> >Pomada</option>
+                            <option value="5" <?php if ($filaMedicamento['idPresentacion']==5) echo 'selected'?> >Crema</option>
+                            <option value="6" <?php if ($filaMedicamento['idPresentacion']==6) echo 'selected'?> >Jarabe</option>
+                          </select>
+                        </div>
+                        <div class="mb-3 col-2">
+                          <label for="unidades" class="form-label">Unidades</label>
+                          <input type="number" name="unidades" class="form-control" id="unidades" value="<?=$filaMedicamento['cantidadMedicamento']?>" required>
+                        </div>
+                        <div class="mb-3 col">
+                          <label for="via" class="form-label">Vía de administración</label>
+                          <select id="via" class="form-select" name="via" aria-label="Selecciona la vía de administración." required>
+                            <option <?php if (!isset($filaMedicamento['idDosis'])) echo 'selected'?> value="">-</option>
+                            <option value="1" <?php if ($filaMedicamento['idDosis']==1) echo 'selected'?>>Oral</option>
+                            <option value="2" <?php if ($filaMedicamento['idDosis']==2) echo 'selected'?> >Inyectada</option>
+                            <option value="3" <?php if ($filaMedicamento['idDosis']==3) echo 'selected'?> >Intravenosa</option>
+                          </select>
+                        </div>
+                        <div class="mb-3 col">
+                          <label for="caducidad" class="form-label">Fecha de caducidad</label>
+                          <input type="date" name="caducidad" class="form-control" id="caducidad" value="<?=$filaMedicamento['fechadecaducidadMedicamento']?>" required>
+                        </div>
+                        
+                        <div class="col-12">
+                          <button type="submit" class="btn btn-primary">Guardar</button>
+                          <a href="mostrarMedicamentos.php" class="btn btn-secondary">Cancelar</a>
+                          <a href="../includes/eliminarMedicamento.php?idMedicamento=<?=$filaMedicamento['idMedicamento']?>" class="btn btn-danger">Eliminar</a>
+                        </div>
+                      </form>
                     </div>
-                    <div class="col">
-                        <label for="">Cantidad:
-                            <input min="1" class="form-control" type="number" name="cantidadMedicamento" value="<?php echo $filaMedicamento['cantidadMedicamento']?>">
-                        </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <label for="">Dosis:
-                            <select class="form-select" name="idDosis">
-                              <?php
-                                      $mysqli = new mysqli('localhost', 'root', '', 'clinicasComunitarias');
-                                      $queryDosis = $mysqli -> query("select *from dosis");
-                                      while ($valores = mysqli_fetch_array($queryDosis)){
-                                          echo '<option value="' . $valores['idDosis'] . '">'.$valores['nombreDosis'] . '</option>';
-                                      }
-                                  ?>
-                            </select>
-                        </label>
-                    </div>
-                    <div class="col">
-                        <label for="">Fecha de Cad.:
-                            <input class="form-control" type="datetime-local" name="fechadecaducidadMedicamento" value="">
-                        </label>
-                    </div>
-                </div>
-                <div class="row form-outline">
-                    <div class="col">
-                        <label for="">Presentación:
-                            <select class="form-select" name="idPresentacion">
-                              <?php
-                                      $mysqli = new mysqli('localhost', 'root', '', 'clinicasComunitarias');
-                                      $queryPresentacion = $mysqli -> query("select *from presentacion");
-                                      while ($valores = mysqli_fetch_array($queryPresentacion)){
-                                          echo '<option value="' . $valores['idPresentacion'] . '">'.$valores['nombrePresentacion'] . '</option>';
-                                      }
-                                  ?>
-                            </select>
-                        </label>
-                    </div>
-                    <div class="col">
-                        <label for="">Clinica:
-                            <select class="form-select" name="idClinicaActual">
-                              <?php
-                                      $mysqli = new mysqli('localhost', 'root', '', 'clinicasComunitarias');
-                                      $queryClinicas = $mysqli -> query("select *from clinicas");
-                                      while ($valores = mysqli_fetch_array($queryClinicas)){
-                                          echo '<option value="' . $valores['idClinica'] . '">'.$valores['nombreClinica'] . '</option>';
-                                      }
-                                  ?>
-                            </select>
-                        </label>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <input class="btn btn-info" type="submit" name="" value="Registrar">
-                    </div>
-                    <div class="col">
-                        <input class="btn btn-danger modal__close" type="button" value="Cancelar">
-                    </div>
+
                 </div>
               </form>
-            </div>
           </div>
         </div>
       </div>

@@ -6,7 +6,6 @@
 
     $consultaUsuarios="SELECT idUsuario, nombreUsuario, cargo, correo FROM  usuarios";
     $queryUsuarios = mysqli_query($conn, $consultaUsuarios);
-
 ?>
 <!DOCTYPE html>
 <html lang="es" dir="ltr">
@@ -116,7 +115,12 @@
                       </div>
                       <div class="mb-3">
                         <label for="cargo" class="form-label">Cargo</label>
-                        <input type="text" name="cargo" class="form-control" id="cargo" value="<?=$filaClinica['cargo']?>" required>
+                        <select id="cargo" class="form-select" name="cargo" aria-label="Selecciona el tipo de usuario." required>
+                          <option selected value="">-</option>
+                          <option >Administrador</option>
+                          <option >Pasante</option>
+                          <option >Médico</option>
+                        </select>
                       </div>
                       <div class="mb-3">
                         <label for="correo" class="form-label">Correo</label>

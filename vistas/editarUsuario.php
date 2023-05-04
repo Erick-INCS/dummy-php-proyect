@@ -40,14 +40,20 @@
                         </div>
                         <div class="mb-3">
                           <label for="cargo" class="form-label">Cargo</label>
-                          <input type="text" name="cargo" class="form-control" id="cargo" value="<?=$filaClinica['cargo']?>" required>
+                          <select id="cargo" class="form-select" name="cargo" aria-label="Selecciona el tipo de usuario." required>
+                            <option <?php if (!isset($filaClinica['cargo'])) echo 'selected'?> value="">-</option>
+                            <option <?php if ($filaClinica['cargo']=='Administrador') echo 'selected'?>>Administrador</option>
+                            <option <?php if ($filaClinica['cargo']=='Pasante') echo 'selected'?> >Pasante</option>
+                            <option <?php if ($filaClinica['cargo']=='Médico') echo 'selected'?> >Médico</option>
+                          </select>
                         </div>
                         <div class="mb-3">
                           <label for="correo" class="form-label">Correo</label>
                           <input type="email" name="correo" class="form-control" value="<?=$filaClinica['correo']?>" id="correo" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Guardar</button>
-                        <a href="mostrarUsuarios.php" class="btn btn-danger">Cancelar</a>
+                        <a href="mostrarUsuarios.php" class="btn btn-secondary">Cancelar</a>
+                        <a href="../includes/eliminarUsuario.php?idUsuario=<?=$filaClinica['idUsuario']?>" class="btn btn-danger">Eliminar</a>
                       </form>
                     </div>
 

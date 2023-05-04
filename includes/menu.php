@@ -25,15 +25,16 @@
       </div>
     </a>
     <?php if($is_admin){ ?>
-    <!-- Para administrador -->
-    <a href="mostrarUsuarios.php" class="leftmenulink w-inline-block">
-      <div class="w-row">
-        <div class="w-col w-col-2"><div class="icontectleft">A</div></div>
-        <div class="w-col w-col-8"><div class="leftlinktext">Usuarios</div></div>
-      </div>
-    </a>
+      <!-- Para administrador -->
+      <a href="mostrarUsuarios.php" class="leftmenulink w-inline-block">
+        <div class="w-row">
+          <div class="w-col w-col-2"><div class="icontectleft">A</div></div>
+          <div class="w-col w-col-8"><div class="leftlinktext">Usuarios</div></div>
+        </div>
+      </a>
+    <?php } ?>
     
-    <a href="mostrarDosis.php" class="leftmenulink w-inline-block">
+    <!-- <a href="mostrarDosis.php" class="leftmenulink w-inline-block">
       <div class="w-row">
         <div class="w-col w-col-2"><div class="icontectleft">C</div></div>
         <div class="w-col w-col-8"><div class="leftlinktext">Dosis</div></div>
@@ -43,7 +44,7 @@
       <div class="w-row">
         <div class="w-col w-col-2"><div class="icontectleft">D</div></div>
         <div class="w-col w-col-8"><div class="leftlinktext">Presentacion</div></div></div>
-    </a>
+    </a> -->
     <!-- <a href="mostrarPresentacion.php" class="leftmenulink w-inline-block">
       <div class="w-row">
         <div class="w-col w-col-2"><div class="icontectleft">D</div></div>
@@ -55,7 +56,7 @@
         <div class="w-col w-col-8"><div class="leftlinktext">Salir</div></div>
       </div>
     </a>
-<?php } elseif(!isset($_SESSION['usuario'])){ ?>
+<?php if(!isset($_SESSION['usuario'])){ ?>
     <a href="iniciarsesion.php" class="leftlogout leftmenulink w-inline-block">
       <div class="w-row">
         <div class="w-col w-col-2"><div class="icontectleft">F</div></div>
