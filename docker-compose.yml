@@ -1,0 +1,24 @@
+services:
+  php:
+    # image: "php:7.4.33-apache"
+    build:
+      dockerfile: ./www/Dockerfile_php
+      context: .
+    ports:
+      - "80:80"
+    volumes:
+      - ./www:/var/www/html
+      - ./config/etc:/php_conf
+      - type: bind
+        source: ./config/php/php.ini
+        target: /usr/local/etc/php/php.ini
+  mysql:
+    image: mysql:5.7.39
+    ports:
+      - "3306:3306"
+    environment: 
+        MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - type: bind
+        source: ./clinicascomunitarias.sql
+        target: /docker-entrypoint-initdb.d/clinicascomunitarias.sql

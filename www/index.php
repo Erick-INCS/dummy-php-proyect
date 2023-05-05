@@ -1,0 +1,1 @@
+<?php Header("Location: vistas/inicio.php")?>

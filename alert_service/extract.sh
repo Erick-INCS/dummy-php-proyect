@@ -1,4 +1,4 @@
-mycli -u root -P 8889 -p root -e 'SELECT                                                    
+mycli -u root -P 8889 -p root -e 'SELECT
         MD.activoprincipalMedicamento,
     CM.marca,
     CM.fechadecaducidadMedicamento

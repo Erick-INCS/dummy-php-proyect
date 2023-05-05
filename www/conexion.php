@@ -1,6 +1,6 @@
 <?php
 function conectar(){
-    $host="localhost";
+    $host="mysql";
     $user="root";
     $pass="root";
     $bd="clinicaComunitarias";
