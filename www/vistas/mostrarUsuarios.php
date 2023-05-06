@@ -31,6 +31,13 @@
                 <a class="agregar btn btn-success" href="#">Agregar nuevo usuario</a>
               </div>
             </div>
+            <?php
+              if (isset($_GET['err'])) {?>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <?=$_GET['err']?>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              <?php } ?>
             <table id="tablaClinicas" class="table table-striped table-bordered">
             <thead>
               <tr>

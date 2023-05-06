@@ -5,10 +5,11 @@
 3. Proceso para aletar sobre medicamentos expirados.
 4. Colores rojo para la expiración de los medicamentos.
 5. Corregir order de los medicamentos.
+6. No correos duplicados.
+7. Error al recuperar clave de usuario que no existe.
 
 ### Faltantes:
-1. No correos duplicados.
-2. Error al recuperar clave de usuario que no existe.
+-
 
 ## ¿Cómo ejecutar?
 1. Configurar tus credenciales en un archivo con nombre `.env`

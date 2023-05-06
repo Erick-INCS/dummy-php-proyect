@@ -13,6 +13,13 @@
         $alertas = 0;
     }
 
+    $sql = "SELECT 1 AS UNO FROM usuarios WHERE correo = '$correo'";
+    $query = mysqli_fetch_array(mysqli_query($con, $sql));
+    if (isset($query['UNO'])) {
+        Header("Location: ../vistas/mostrarUsuarios.php?err=" . urldecode("El correo ya se encuentra registrado para otro usuario."));
+        exit();
+    }
+
     $sql = "INSERT INTO usuarios(nombreUsuario, correo, cargo, expiration_date, claveUsuario, recibe_alertas) VALUES('$nombreUsuario','$correo', '$cargo', CURRENT_DATE(), MD5('$pass'), $alertas)";
     $query = mysqli_query($con,$sql);
 

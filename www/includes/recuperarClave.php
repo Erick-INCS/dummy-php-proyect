@@ -18,7 +18,7 @@
   }
   else
   {
-    echo "ERROR EN BASE DE DATOS";
+    Header("Location: ../vistas/iniciarsesion.php?err=" . urldecode("El correo no se encuentra registrado."));
     exit();
   }
 
