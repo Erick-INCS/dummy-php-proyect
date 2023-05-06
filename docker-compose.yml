@@ -1,8 +1,7 @@
 services:
   php:
-    # image: "php:7.4.33-apache"
     build:
-      dockerfile: ./Dockerfile_php
+      dockerfile: ./Dockerfile
       context: ./www
     ports:
       - "80:80"
