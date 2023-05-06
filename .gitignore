@@ -1,3 +1,4 @@
 .env
 .DS_Store
 .trunk
+config/etc/tmp/*
