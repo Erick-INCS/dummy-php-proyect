@@ -41,6 +41,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" charset="utf-8"></script>
     <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js" charset="utf-8"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js" charset="utf-8"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.13.4/sorting/datetime-moment.js" charset="utf-8"></script>
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/modal.css">
@@ -80,6 +82,13 @@
               <?php
               while($filasClinicas = mysqli_fetch_array($cantidadClinicas))
                 {
+                  $dt =strtotime($filasClinicas['fechadecaducidadMedicamento']);
+                  $months_nm = (3600 * 24 * 30);
+                  $months = abs(($dt / $months_nm) - (strtotime("now") / $months_nm));
+                  $m_color = '';
+                  if ($months <= 3.0) {
+                    $m_color = 'text-danger';
+                  }
                 ?>
                     <tr>
                         <td><?=$filasClinicas['activoprincipalMedicamento']?></td> <!-- ingrediente activo -->
@@ -90,7 +99,7 @@
                         <td><?php echo $filasClinicas['nombrePresentacion']?></td> <!-- presentacion -->
                         <td><?php echo $filasClinicas['cantidadMedicamento']?></td> <!-- unidades -->
                         <td><?php echo $filasClinicas['nombreDosis']?></td> <!-- via de admin -->
-                        <td><?php echo date("d/m/Y", strtotime($filasClinicas['fechadecaducidadMedicamento']))?></td> <!-- Caducidad -->
+                        <td class="<?=$m_color?>"><?php echo date("d/m/Y", $dt)?></td> <!-- Caducidad -->
                         <?php if(isset($_SESSION['usuario'])){ ?>
 
                         <td>
@@ -186,8 +195,10 @@
     </div>
     <script type="text/javascript">
       $(document).ready( function () {
+        $.fn.dataTable.moment( 'DD/MM/YYYY' );
         $('#tablaClinicas').DataTable({
             scrollX: true,
+            order: [[8, 'asc']],
           });
       });
 

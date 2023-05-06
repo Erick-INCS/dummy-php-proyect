@@ -1,4 +1,5 @@
 #!/bin/bash
+sleep 10
 while :
 do
 	echo "Press [CTRL+C] to stop.."
