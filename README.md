@@ -1,5 +1,5 @@
 # Progreso
-### Nuevo:
+## Nuevo
 1. Medicamentos personales por usuario.
 2. Checkbox de recibir alertas.
 3. Proceso para aletar sobre medicamentos expirados.
@@ -8,8 +8,8 @@
 6. No correos duplicados.
 7. Error al recuperar clave de usuario que no existe.
 
-### Faltantes:
--
+## Faltantes
+- ¿Mejorar lo visual?
 
 ## ¿Cómo ejecutar?
 1. Configurar tus credenciales en un archivo con nombre `.env`
