@@ -1,6 +1,6 @@
 <?php
-    //session_start();
-    //$session = $_SESSION['usuario'];
+    session_start();
+    $user_id = $_SESSION['usuario'];
     include('../conexion.php');
     $conn = conectar();
 
@@ -31,6 +31,7 @@
     INNER JOIN presentacion p
     ON md.idPresentacion = p.idPresentacion 
     WHERE cm.idMedicamento = '$idMedicamento'
+    AND cm.idUsuario = '$user_id'
     ";
     
     $cantidadMedicamentos = mysqli_query($conn, $consultaMedicamentos);
@@ -63,6 +64,7 @@
                       <form action="../includes/actualizarMedicamento.php" method="post" class="row w-100">
                         <div class="mb-3 col-md-4 col-lg-3">
                           <input type="hidden" name="idMedicamento" value="<?php echo $filaMedicamento['idMedicamento']?>">
+                          <input type="hidden" name="idUsuario" value="<?=$user_id?>">
 
                           <label for="Ingrediente" class="form-label">Ingrediente activo</label>
                           <input type="text" name="Ingrediente" class="form-control" id="Ingrediente" value="<?=$filaMedicamento['activoprincipalMedicamento']?>" required>

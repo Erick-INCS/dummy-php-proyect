@@ -51,6 +51,12 @@
                           <label for="correo" class="form-label">Correo</label>
                           <input type="email" name="correo" class="form-control" value="<?=$filaClinica['correo']?>" id="correo" required>
                         </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" value="1" id="alertas" name="alertas" <?php if($filaClinica['recibe_alertas']==1) {echo 'checked';}?>>
+                            <label class="form-check-label" for="alertas">
+                              Recibe alertas
+                            </label>
+                          </div>
                         <button type="submit" class="btn btn-primary">Guardar</button>
                         <a href="mostrarUsuarios.php" class="btn btn-secondary">Cancelar</a>
                         <a href="../includes/eliminarUsuario.php?idUsuario=<?=$filaClinica['idUsuario']?>" class="btn btn-danger">Eliminar</a>

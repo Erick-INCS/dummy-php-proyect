@@ -12,6 +12,7 @@
 	$unidades = $_POST['unidades'];
 	$via = $_POST['via'];
 	$caducidad = $_POST['caducidad'];
+	$idUsuario=$_POST['idUsuario'];
 
 	/*
 	medicamentos (
@@ -40,16 +41,18 @@
 	dosis = '$dosis',
 	idPresentacion = '$presentacion',
 	idDosis = '$via'
-	WHERE idMedicamento='$idMedicamento'";
+	WHERE idMedicamento='$idMedicamento'"; 
 
-	$queryMedicamento = mysqli_query($con, $sqlMedicamento);
+$queryMedicamento = mysqli_query($con, $sqlMedicamento);
 
-	$sqlClinica = "UPDATE clinicatienemedicamento SET
+$sqlClinica = "UPDATE clinicatienemedicamento SET
 	marca = '$marca',
 	loteMedicamento = '$lote',
 	cantidadMedicamento = '$unidades',
 	fechadecaducidadMedicamento = '$caducidad'
-	WHERE idMedicamento = '$idMedicamento'";
+	WHERE idMedicamento = '$idMedicamento'
+	AND idUsuario='$idUsuario'";
+
 	$queryClinica = mysqli_query($con, $sqlClinica);
 
 	if($queryClinica&&$queryMedicamento){

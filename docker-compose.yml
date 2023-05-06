@@ -2,8 +2,8 @@ services:
   php:
     # image: "php:7.4.33-apache"
     build:
-      dockerfile: ./www/Dockerfile_php
-      context: .
+      dockerfile: ./Dockerfile_php
+      context: ./www
     ports:
       - "80:80"
     volumes:
@@ -12,6 +12,8 @@ services:
       - type: bind
         source: ./config/php/php.ini
         target: /usr/local/etc/php/php.ini
+    env_file:
+      - ./.env
   mysql:
     image: mysql:5.7.39
     ports:
@@ -22,3 +24,16 @@ services:
       - type: bind
         source: ./clinicascomunitarias.sql
         target: /docker-entrypoint-initdb.d/clinicascomunitarias.sql
+  alert_service:
+    tty: true
+    build:
+      dockerfile: ./Dockerfile
+      context: alert_service
+    volumes:
+      - type: bind
+        source: ./alert_service/extract.sh
+        target: /dir/extract.sh
+    env_file:
+      - ./.env
+    entrypoint:
+        /dir/extract.sh

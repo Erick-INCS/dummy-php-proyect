@@ -7,8 +7,13 @@
     $correo = $_POST['correo'];
     $cargo = $_POST['cargo'];
     $pass = md5(strval(rand()));
+    if (isset($_POST['alertas'])) {
+        $alertas = 1;
+    } else {
+        $alertas = 0;
+    }
 
-    $sql = "INSERT INTO usuarios(nombreUsuario, correo, cargo, expiration_date, claveUsuario) VALUES('$nombreUsuario','$correo', '$cargo', CURRENT_DATE(), MD5('$pass'))";
+    $sql = "INSERT INTO usuarios(nombreUsuario, correo, cargo, expiration_date, claveUsuario, recibe_alertas) VALUES('$nombreUsuario','$correo', '$cargo', CURRENT_DATE(), MD5('$pass'), $alertas)";
     $query = mysqli_query($con,$sql);
 
     if($query){

@@ -12,6 +12,7 @@
 	$unidades = $_POST['unidades'];
 	$via = $_POST['via'];
 	$caducidad = $_POST['caducidad'];
+	$idUsuario = $_POST['idUsuario'];
 
     // $consultaMedicamento = "SELECT idMedicamento from medicamentos order by idMedicamento desc limit 1";
     // $querycuantoscuentoscuentas = mysqli_query($con,$consultaMedicamento);
@@ -38,12 +39,14 @@
 
 	$sqlClinica = "INSERT INTO clinicatienemedicamento(
         idMedicamento,
+        idUsuario,
         marca,
         loteMedicamento,
         cantidadMedicamento,
         fechadecaducidadMedicamento
     ) SELECT
         (SELECT MAX(idMedicamento) from medicamentos),
+        '$idUsuario',
         '$marca',
         '$lote',
         '$unidades',

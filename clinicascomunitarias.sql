@@ -62,6 +62,7 @@ INSERT INTO medicamentos VALUES
 CREATE TABLE clinicatienemedicamento
 (
 	idClinica int not null default 1,
+	idUsuario int not null,
     idMedicamento int not null,
     cantidadMedicamento int,
 	loteMedicamento varchar(100),
@@ -70,8 +71,9 @@ CREATE TABLE clinicatienemedicamento
 );
 
 INSERT INTO clinicatienemedicamento VALUES
-(DEFAULT, 1, 20, "1456", "Pfizer", "2025-05-02"),
-(DEFAULT, 2, 15, "34", "Astrazeneca", "2024-12-24")
+(DEFAULT, 1, 1, 20, "1456", "Pfizer", "2025-05-02"),
+(DEFAULT, 1, 2, 15, "34", "Astrazeneca", "2024-12-24"),
+(DEFAULT, 1, 2, 15, "34", "Astrazenecaa", "2023-06-24")
 ;
 
 CREATE TABLE usuarios
@@ -81,10 +83,11 @@ CREATE TABLE usuarios
     cargo varchar(30),
     correo varchar(30),
     claveUsuario varchar(32),
-    expiration_date date
+    expiration_date date,
+    recibe_alertas int default 0
 );
 
-INSERT INTO usuarios(correo, claveUsuario, cargo) values ('admin@mail.com', MD5('admin'), 'Administrador');
+INSERT INTO usuarios(correo, claveUsuario, cargo, recibe_alertas) values ('admin@mail.com', MD5('admin'), 'Administrador', 1);
 
 /*************/
 SELECT
@@ -102,9 +105,9 @@ SELECT
 FROM
 	clinicatienemedicamento cm
     INNER JOIN medicamentos md
-    	ON md.idMedicamento = cm.idMedicamento
+        ON md.idMedicamento = cm.idMedicamento
     INNER JOIN dosis d
-    	ON md.idDosis = d.idDosis
+        ON md.idDosis = d.idDosis
     INNER JOIN presentacion p
-    	ON md.idPresentacion = p.idPresentacion
+        ON md.idPresentacion = p.idPresentacion
 ;

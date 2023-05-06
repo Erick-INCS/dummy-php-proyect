@@ -1,6 +1,6 @@
 <?php
-    //session_start();
-    //$session = $_SESSION['usuario'];
+    session_start();
+    $user_id = $_SESSION['usuario'];
     include('../conexion.php');
     $conn = conectar();
 
@@ -25,10 +25,12 @@
         ON md.idDosis = d.idDosis
       INNER JOIN presentacion p
         ON md.idPresentacion = p.idPresentacion
+  WHERE cm.idUsuario = '$user_id'
   ORDER BY cm.fechadecaducidadMedicamento DESC
   ;
     ";
     $cantidadClinicas=mysqli_query($conn, $consultaClinicas);
+    // echo var_dump($cantidadClinicas);
 
 ?>
 <!DOCTYPE html>
@@ -115,6 +117,7 @@
                       <form action="../includes/insertarMedicamento.php" method="post" class="row w-100">
                         <div class="mb-3 col-12">
                           <input type="hidden" name="idMedicamento" value="<?php echo $filaMedicamento['idMedicamento']?>">
+                          <input type="hidden" name="idUsuario" value="<?=$user_id?>">
 
                           <label for="Ingrediente" class="form-label">Ingrediente activo</label>
                           <input type="text" name="Ingrediente" class="form-control" id="Ingrediente" value="<?=$filaMedicamento['activoprincipalMedicamento']?>" required>

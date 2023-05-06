@@ -4,7 +4,7 @@
     include('../conexion.php');
     $conn = conectar();
 
-    $consultaUsuarios="SELECT idUsuario, nombreUsuario, cargo, correo FROM  usuarios";
+    $consultaUsuarios="SELECT idUsuario, nombreUsuario, cargo, correo, recibe_alertas FROM  usuarios";
     $queryUsuarios = mysqli_query($conn, $consultaUsuarios);
 ?>
 <!DOCTYPE html>
@@ -38,6 +38,7 @@
                 <th>Nombre</th>
                 <th>Cargo</th>
                 <th>Correo</th>
+                <th>Recibe alertas</th>
                 <th></th>
               </tr>
             </thead>
@@ -51,6 +52,7 @@
                         <td><?php echo $filasUsuarios['nombreUsuario']?></td>
                         <td><?php echo $filasUsuarios['cargo']?></td>
                         <td><?php echo $filasUsuarios['correo']?></td>
+                        <td><?php if ($filasUsuarios['recibe_alertas'] == 1) {echo 'Si';} else {echo 'No';}?></td>
                         <?php
                           if(0==0){
                             ?>
@@ -125,6 +127,12 @@
                       <div class="mb-3">
                         <label for="correo" class="form-label">Correo</label>
                         <input type="email" name="correo" class="form-control" value="<?=$filaClinica['correo']?>" id="correo" required>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="1" id="alertas" name="alertas">
+                        <label class="form-check-label" for="alertas">
+                          Recibe alertas
+                        </label>
                       </div>
                     </div>
 

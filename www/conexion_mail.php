@@ -1,9 +1,9 @@
 <?php
 $mail_conf = array(
-    'smtp_host' => 'smtp.gmail.com',
-    'addr' => 'cuentadeerickv3.1416@gmail.com',
-    'pass' => 'y',
-    'app_name' => 'Dummy app',
-    'forced_recp' => 'cuentadeerickv3.1416@gmail.com',
+    'smtp_host' => getenv('SMTP_HOST'),
+    'addr' => getenv('ADDR'),
+    'pass' => getenv('PASS'),
+    'app_name' => getenv('APP_NAME'),
+    'forced_recp' => getenv('FORCED_RECP'),
 );
 ?>
