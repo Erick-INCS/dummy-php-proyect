@@ -7,9 +7,12 @@
 5. Corregir order de los medicamentos.
 6. No correos duplicados.
 7. Error al recuperar clave de usuario que no existe.
+8. Acortar clave temporal
+9. Requisitos al cambiar pass
+10. Mejorar lo visual
 
 ## Faltantes
-- ¿Mejorar lo visual?
+N/A
 
 ## ¿Cómo ejecutar?
 1. Configurar tus credenciales en un archivo con nombre `.env`

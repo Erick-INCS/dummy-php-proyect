@@ -1,3 +1,12 @@
+<div class="d-flex align-items-center justify-content-between mb-4">
+    <h6 class="mb-0">Sección de medicamentos</h6>
+    <!-- <a href="">Show All</a> -->
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Agregar medicamento
+    </button>
+</div>
+
 <?php
     session_start();
     $user_id = $_SESSION['usuario'];
@@ -30,37 +39,7 @@
   ;
     ";
     $cantidadClinicas=mysqli_query($conn, $consultaClinicas);
-    // echo var_dump($cantidadClinicas);
-
 ?>
-<!DOCTYPE html>
-<html lang="es" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" charset="utf-8"></script>
-    <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js" charset="utf-8"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js" charset="utf-8"></script>
-    <script src="//cdn.datatables.net/plug-ins/1.13.4/sorting/datetime-moment.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/modal.css">
-    <title></title>
-  </head>
-  <body>
-    <section class="content">
-      <div class="pagecontain container">
-        <div class="div-block-6">
-          <?php include( "../includes/menu.php"); ?>
-          <div class="contenido div-block-7 w-clearfix">
-                <?php if(isset($_SESSION['usuario'])){ ?>
-            <div class="row">
-              <div class="col mb-5">
-                <a class="agregar btn btn-success" href="#">Agregar nuevo medicamento</a>
-              </div>
-            </div>
-            <?php } ?>
             <table id="tablaClinicas" class="table table-striped table-bordered">
             <thead>
               <tr>
@@ -103,7 +82,7 @@
                         <?php if(isset($_SESSION['usuario'])){ ?>
 
                         <td>
-                            <a href="editarMedicamento.php?idClinica=<?php echo $filasClinicas['idClinica'] ?>&idMedicamento=<?php echo $filasClinicas['idMedicamento']?>" class="agregar btn btn-info">Editar</a>
+                            <a href="editarMedicamento.php?idClinica=<?php echo $filasClinicas['idClinica'] ?>&idMedicamento=<?php echo $filasClinicas['idMedicamento']?>" class="btn btn-sm btn-primary">Editar</a>
                         </td>
                         <?php
                       } ?>
@@ -115,15 +94,22 @@
           </table>
           </div>
         </div>
-      </div>
-    </section>
-    <div class="col-md-3">
-        <section class="modal">
-            <div class="modal__container">
 
-                    <div class="container-sm">
-                      <h3 class="card-title mt-0">Nuevo Medicamento</h3>
-                      <form action="../includes/insertarMedicamento.php" method="post" class="row w-100">
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Nuevo Medicamento</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+
+      <form action="../includes/insertarMedicamento.php" method="post" class="row w-100">
                         <div class="mb-3 col-12">
                           <input type="hidden" name="idMedicamento" value="<?php echo $filaMedicamento['idMedicamento']?>">
                           <input type="hidden" name="idUsuario" value="<?=$user_id?>">
@@ -183,16 +169,21 @@
                         
                         <div class="col-12">
                           <button type="submit" class="btn btn-primary">Guardar</button>
-                          <input class="btn btn-danger modal__close" type="button" value="Cancelar">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         </div>
                       </form>
-                    </div>
 
 
-
-
-        </section>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
     </div>
+  </div>
+</div>
+
+
     <script type="text/javascript">
       $(document).ready( function () {
         $.fn.dataTable.moment( 'DD/MM/YYYY' );
@@ -202,19 +193,17 @@
           });
       });
 
-      const openModal = document.querySelector('.agregar');
-      const modal = document.querySelector('.modal');
-      const closeModal = document.querySelector('.modal__close');
+      // const openModal = document.querySelector('.agregar');
+      // const modal = document.querySelector('.modal');
+      // const closeModal = document.querySelector('.modal__close');
 
-          openModal.addEventListener('click', (e)=>{
-            e.preventDefault();
-            modal.classList.add('modal--show');
-          });
+      //     openModal.addEventListener('click', (e)=>{
+      //       e.preventDefault();
+      //       modal.classList.add('modal--show');
+      //     });
 
-          closeModal.addEventListener('click', (e)=>{
-            e.preventDefault();
-            modal.classList.remove('modal--show');
-          });
+      //     closeModal.addEventListener('click', (e)=>{
+      //       e.preventDefault();
+      //       modal.classList.remove('modal--show');
+      //     });
     </script>
-  </body>
-</html>

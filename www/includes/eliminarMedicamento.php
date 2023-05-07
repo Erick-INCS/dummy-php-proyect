@@ -11,6 +11,6 @@
   $querydos=mysqli_query($con,$sqldos);
 
   if($query){
-      Header("Location: ../vistas/mostrarMedicamentos.php");
+      Header("Location: ../vistas/inicio.php");
   }
 ?>

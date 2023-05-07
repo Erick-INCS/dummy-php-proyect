@@ -14,7 +14,7 @@ if(!isset($_SESSION['usuario'])){
       <br>
     <form class="login-form" action="../includes/recuperarClave.php" method="post">
       <input name="usuario" type="email" placeholder="Correo electrónico" required/>
-      <button>Enviar clave</button>
+      <button class="login">Enviar clave</button>
     </form>
   </div>
 </div>

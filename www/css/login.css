@@ -13,6 +13,13 @@
     padding: 8% 0 0;
     margin: auto;
 }
+
+.login-page-ext {
+    width: 30rem;
+    padding: 8% 0 0;
+    margin: auto;
+}
+
 .form {
     position: relative;
     z-index: 1;
@@ -23,6 +30,11 @@
     text-align: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
+
+.form-ext {
+    max-width: 80vw;
+}
+
 .form input {
     font-family: "Roboto", sans-serif;
     outline: 0;
@@ -98,7 +110,7 @@ text-decoration: none;
 color: #EF3B3A;
 }
 body {
-background: #83c5be;
+    background: #83c5be;
 }
 
 .alert-dismissible .btn-close {

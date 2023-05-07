@@ -56,6 +56,6 @@ $sqlClinica = "UPDATE clinicatienemedicamento SET
 	$queryClinica = mysqli_query($con, $sqlClinica);
 
 	if($queryClinica&&$queryMedicamento){
-		Header("Location: ../vistas/mostrarMedicamentos.php");
+		Header("Location: ../vistas/inicio.php");
 	}
 ?>

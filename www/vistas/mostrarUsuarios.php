@@ -1,175 +1,101 @@
 <?php
-    //session_start();
-    //$session = $_SESSION['usuario'];
-    include('../conexion.php');
-    $conn = conectar();
-
-    $consultaUsuarios="SELECT idUsuario, nombreUsuario, cargo, correo, recibe_alertas FROM  usuarios";
-    $queryUsuarios = mysqli_query($conn, $consultaUsuarios);
+    include('../globals.php');
+    session_start();
+    $is_admin = $_SESSION['admin'];
+    $c = 'Usuarios';
 ?>
 <!DOCTYPE html>
-<html lang="es" dir="ltr">
-  <head>
+<html lang="en">
+
+<head>
     <meta charset="utf-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title><?=$APP_NAME?></title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="../lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="../lib/base/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="../lib/base/css/style.css" rel="stylesheet">
+
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" charset="utf-8"></script>
     <script src="//cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js" charset="utf-8"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js" charset="utf-8"></script>
+    <script src="//cdn.datatables.net/plug-ins/1.13.4/sorting/datetime-moment.js" charset="utf-8"></script>
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../css/modal.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <title></title>
-  </head>
-  <body>
-    <section class="content">
-      <div class="pagecontain">
-        <div class="div-block-6">
-          <?php include( "../includes/menu.php"); ?>
-          <div class="contenido div-block-7 w-clearfix">
-            <div class="row">
-              <div class="col mb-5">
-                <a class="agregar btn btn-success" href="#">Agregar nuevo usuario</a>
-              </div>
+    <style>
+        .table.dataTable {
+            padding-top: 2rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-xxl position-relative bg-white d-flex p-0">
+        <!-- Spinner Start -->
+        <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="sr-only">Loading...</span>
             </div>
-            <?php
-              if (isset($_GET['err'])) {?>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                  <?=$_GET['err']?>
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-              <?php } ?>
-            <table id="tablaClinicas" class="table table-striped table-bordered">
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Nombre</th>
-                <th>Cargo</th>
-                <th>Correo</th>
-                <th>Recibe alertas</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-              while($filasUsuarios = mysqli_fetch_array($queryUsuarios))
-                {
-                ?>
-                    <tr>
-                        <td><?php echo $filasUsuarios['idUsuario']?></td>
-                        <td><?php echo $filasUsuarios['nombreUsuario']?></td>
-                        <td><?php echo $filasUsuarios['cargo']?></td>
-                        <td><?php echo $filasUsuarios['correo']?></td>
-                        <td><?php if ($filasUsuarios['recibe_alertas'] == 1) {echo 'Si';} else {echo 'No';}?></td>
-                        <?php
-                          if(0==0){
-                            ?>
-                        <td><a href="editarUsuario.php?idUsuario=<?php echo $filasUsuarios['idUsuario'] ?>" class="btn btn-info">Editar</a></td>
-                        <!-- <td><a href="../includes/eliminarUsuario.php?idUsuario=<?php echo $filasUsuarios['idUsuario'] ?>" class="btn btn-danger">Eliminar</a></td> -->
-                        <?php
-                      }
-                      else {
-                        ?>
-                          <td></td>
-                          <td></td>
-                        <?php
-                      }
-                      ?>
-
-                    </tr>
-                <?php
-                }
-                ?>
-            </tbody>
-          </table>
-          </div>
         </div>
-      </div>
-    </section>
-    <div class="col-md-3">
-        <section class="modal">
-            <div class="modal__container">
-                <!-- <h3 class="card-title">Agregar Usuario</h3>
-                <form class="" action="../includes/insertarUsuario.php" method="post">
-                  <div class="row">
-                    <div class="col">
-                      <label for="">Nombre:</label>
-                      <input class="form-control" type="text" name="nombreUsuario" value="" required>
-                    </div>
-                  </div>
-                  <div class="row mb-4">
-                    <div class="col">
-                      <div class="col">
-                        <label for="">Clave:</label>
-                        <input class="form-control" type="password" name="claveUsuario" value="" required>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                      <div class="col">
-                          <input class="btn btn-info" type="submit" name="" value="Registrar">
-                      </div>
-                      <div class="col">
-                          <input class="btn btn-danger modal__close" type="button" value="Cancelar">
-                        </div>
-                      </div>
-                    </form> -->
+        <!-- Spinner End -->
 
-                    <div class="container-sm">
-                      <h3 class="card-title mt-0">Agregar Usuario</h3>
-                      <form action="../includes/insertarUsuario.php" method="post">
-                      <div class="mb-3">
-                        <label for="nombreUsuario" class="form-label">Nombre</label>
-                        <input type="hidden" name="idUsuario" value="<?php echo $filaClinica['idUsuario'] ?>">
-                        <input type="text" name="nombreUsuario" class="form-control" id="nombreUsuario" value="<?=$filaClinica['nombreUsuario']?>" required>
-                      </div>
-                      <div class="mb-3">
-                        <label for="cargo" class="form-label">Cargo</label>
-                        <select id="cargo" class="form-select" name="cargo" aria-label="Selecciona el tipo de usuario." required>
-                          <option selected value="">-</option>
-                          <option >Administrador</option>
-                          <option >Pasante</option>
-                          <option >Médico</option>
-                        </select>
-                      </div>
-                      <div class="mb-3">
-                        <label for="correo" class="form-label">Correo</label>
-                        <input type="email" name="correo" class="form-control" value="<?=$filaClinica['correo']?>" id="correo" required>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="1" id="alertas" name="alertas">
-                        <label class="form-check-label" for="alertas">
-                          Recibe alertas
-                        </label>
-                      </div>
-                    </div>
 
-                    <div>
-                      <button type="submit" id="action_btn" class="btn btn-primary">Registrar</button>
-                      <input class="btn btn-danger modal__close" type="button" value="Cancelar">
-                    </div>
-                  </form>
+        <?php include('../includes/menu.php'); ?>
+
+        <!-- Content Start -->
+        <div class="content">
+
+            <?php include('../includes/navbar.php'); ?>
+
+            <!-- Recent Sales Start -->
+            <div class="container pt-4 px-4">
+                <div class="bg-light text-center rounded p-4">
+                    <?php include('_mostrarUsuarios.php'); ?>
                 </div>
-              </div>
-            </section>
-          </div>
-    <script type="text/javascript">
-      $(document).ready( function () {
-        $('#tablaClinicas').DataTable();
-      });
+            </div>
+            <!-- Recent Sales End -->
 
-      const openModal = document.querySelector('.agregar');
-      const modal = document.querySelector('.modal');
-      const closeModal = document.querySelector('.modal__close');
 
-          openModal.addEventListener('click', (e)=>{
-            e.preventDefault();
-            modal.classList.add('modal--show');
-          });
+        </div>
+        <!-- Content End -->
 
-          closeModal.addEventListener('click', (e)=>{
-            e.preventDefault();
-            modal.classList.remove('modal--show');
-          });
-    </script>
-  </body>
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <!-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script> -->
+    <script src="../lib/chart/chart.min.js"></script>
+    <script src="../lib/easing/easing.min.js"></script>
+    <script src="../lib/waypoints/waypoints.min.js"></script>
+    <script src="../lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="../lib/tempusdominus/js/moment.min.js"></script>
+    <script src="../lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="../lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="../lib/base/js/main.js"></script>
+</body>
+
 </html>

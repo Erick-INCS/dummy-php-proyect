@@ -1,68 +1,26 @@
-<?php
-  session_start();
-  $is_admin = $_SESSION['admin'];
-  if(isset($_SESSION['usuario'])){ ?>
-<?php } ?>
+        <!-- Sidebar Start -->
+        <div class="sidebar pe-4 pb-3">
+            <nav class="navbar bg-light navbar-light">
+                <a href="inicio.php" class="navbar-brand mx-4 mb-3">
+                    <h3 class="text-primary"><?=$APP_NAME?></h3>
+                </a>
+                <div class="d-flex align-items-center ms-4 mb-4">
+                    <div class="ms-3">
+                        <h6 class="mb-0"><?=$_SESSION['nombre_usuario']?></h6>
+                        <span><?=$_SESSION['cargo']?></span>
+                    </div>
+                </div>
+                <div class="navbar-nav w-100">
+                    <a href="inicio.php" class="nav-item nav-link <?php if ($c=='Medicamentos'){echo 'active';}?>"><i class="fa fa-prescription-bottle me-2"></i>Medicamentos</a>
+                    <?php if($is_admin){ ?>
+                    <!-- Para administrador -->
+                        <a href="mostrarUsuarios.php" class="nav-item nav-link <?php if ($c=='Usuarios'){echo 'active';}?>"><i class="fa fa-users me-2"></i>Usuarios</a>
+                    <?php } ?>
 
-<div class="flextleft menuleft">
-  <div class="row w-row">
-    <div class="w-col w-col-10">
-      <div class="leftnametext nametext">Bienvenido</div>
-      <div class="detailtext leftnametext nametext">Menu interactivo</div>
-    </div>
-  </div>
-  <div class="leftmenucontain">
-    <a href="inicio.php" class="leftmenulink w-inline-block">
-      <div class="w-row">
-        <div class="w-col w-col-2"><div class="icontectleft">G</div></div>
-        <div class="w-col w-col-8"><div class="leftlinktext">Inicio</div></div>
-      </div>
-    </a>
-    <a href="mostrarMedicamentos.php" class="leftmenulink w-inline-block">
-      <div class="w-row">
-        <div class="w-col w-col-2"><div class="icontectleft">B</div></div>
-        <div class="w-col w-col-8"><div class="leftlinktext">Medicamentos</div></div>
-      </div>
-    </a>
-    <?php if($is_admin){ ?>
-      <!-- Para administrador -->
-      <a href="mostrarUsuarios.php" class="leftmenulink w-inline-block">
-        <div class="w-row">
-          <div class="w-col w-col-2"><div class="icontectleft">A</div></div>
-          <div class="w-col w-col-8"><div class="leftlinktext">Usuarios</div></div>
+                    <!-- <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>
+                    <a href="table.html" class="nav-item nav-link"><i class="fa fa-table me-2"></i>Tables</a>
+                    <a href="chart.html" class="nav-item nav-link"><i class="fa fa-chart-bar me-2"></i>Charts</a> -->
+                </div>
+            </nav>
         </div>
-      </a>
-    <?php } ?>
-    
-    <!-- <a href="mostrarDosis.php" class="leftmenulink w-inline-block">
-      <div class="w-row">
-        <div class="w-col w-col-2"><div class="icontectleft">C</div></div>
-        <div class="w-col w-col-8"><div class="leftlinktext">Dosis</div></div>
-      </div>
-    </a>
-    <a href="mostrarPresentacion.php" class="leftmenulink w-inline-block">
-      <div class="w-row">
-        <div class="w-col w-col-2"><div class="icontectleft">D</div></div>
-        <div class="w-col w-col-8"><div class="leftlinktext">Presentacion</div></div></div>
-    </a> -->
-    <!-- <a href="mostrarPresentacion.php" class="leftmenulink w-inline-block">
-      <div class="w-row">
-        <div class="w-col w-col-2"><div class="icontectleft">D</div></div>
-        <div class="w-col w-col-8"><div class="leftlinktext">Presentacion</div></div></div>
-    </a> -->
-    <a href="../includes/cerrarsesion.php" class="leftlogout leftmenulink w-inline-block">
-      <div class="w-row">
-        <div class="w-col w-col-2"><div class="icontectleft">F</div></div>
-        <div class="w-col w-col-8"><div class="leftlinktext">Salir</div></div>
-      </div>
-    </a>
-<?php if(!isset($_SESSION['usuario'])){ ?>
-    <a href="iniciarsesion.php" class="leftlogout leftmenulink w-inline-block">
-      <div class="w-row">
-        <div class="w-col w-col-2"><div class="icontectleft">F</div></div>
-        <div class="w-col w-col-8"><div class="leftlinktext">Iniciar sesion</div></div>
-      </div>
-    </a>
-<?php } ?>
-  </div>
-</div>
+        <!-- Sidebar End -->

@@ -56,7 +56,7 @@
 	$queryClinica = mysqli_query($con, $sqlClinica);
 
     if($queryMedicamento && $queryClinica){
-        header("Location: ../vistas/mostrarMedicamentos.php");
+        header("Location: ../vistas/inicio.php");
     } else {
         echo var_dump($queryMedicamento);
         echo '<br>';

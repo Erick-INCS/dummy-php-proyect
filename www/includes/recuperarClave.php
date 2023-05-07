@@ -6,7 +6,7 @@
 
   $user=$_POST['usuario'];
 
-  $consulta = "SELECT claveUsuario FROM usuarios where correo='$user'";
+  $consulta = "SELECT LEFT(claveUsuario, 6) AS claveUsuario FROM usuarios where correo='$user'";
   $resultado=mysqli_query($conexion, $consulta);
   $filas = mysqli_fetch_assoc($resultado);
   
@@ -26,7 +26,7 @@
   mysqli_close($conexion);
 
   $target_mail = $user;
-  $subject = "Recuperación de acceso";
+  $subject = "Recuperacion de acceso";
   $body = "Hola usuario, a continuación te compartimos tu clave de acceso temporal: " . $tmp_pass;
 
   send_mail(

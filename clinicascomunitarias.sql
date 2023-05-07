@@ -81,13 +81,14 @@ CREATE TABLE usuarios
 	idUsuario int not null primary key AUTO_INCREMENT,
     nombreUsuario varchar(60),
     cargo varchar(30),
-    correo varchar(30),
+    correo varchar(100),
     claveUsuario varchar(32),
     expiration_date date,
     recibe_alertas int default 0
 );
 
-INSERT INTO usuarios(correo, claveUsuario, cargo, recibe_alertas) values ('admin@mail.com', MD5('admin'), 'Administrador', 1);
+INSERT INTO usuarios(nombreUsuario, correo, claveUsuario, cargo, recibe_alertas) values
+('Administrador del sistema', 'admin@mail.com', MD5('admin'), 'Administrador', 1);
 
 /*************/
 SELECT
