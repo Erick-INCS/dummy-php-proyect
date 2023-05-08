@@ -1,8 +1,14 @@
 <?php
     include('../globals.php');
     session_start();
+    $session = $_SESSION['usuario'];
+    if (!isset($session)) {
+        header("Location: iniciarsesion.php");
+        exit();
+    }
     $is_admin = $_SESSION['admin'];
     $c = 'Medicamentos';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -6,7 +6,7 @@
     $nombreUsuario = $_POST['nombreUsuario'];
     $correo = $_POST['correo'];
     $cargo = $_POST['cargo'];
-    $pass = md5(strval(rand()));
+    $pass = substr(md5(strval(rand())), 0, 5);
     if (isset($_POST['alertas'])) {
         $alertas = 1;
     } else {

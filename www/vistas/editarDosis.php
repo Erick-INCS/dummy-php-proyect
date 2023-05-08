@@ -1,6 +1,10 @@
 <?php
-    //session_start();
-    //$session = $_SESSION['usuario'];
+session_start();
+$session = $_SESSION['usuario'];
+if (!isset($session)) {
+  header("Location: iniciarsesion.php");
+  exit();
+}
     include('../conexion.php');
     $conn = conectar();
 

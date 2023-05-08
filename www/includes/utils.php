@@ -18,6 +18,16 @@
 		);
 	}
 
+	function basicRedirect()
+	{
+		session_start();
+		$session = $_SESSION['usuario'];
+		if (!isset($session)) {
+			header("Location: iniciarsesion.php");
+			exit();
+		}
+	}
+
 	// function send_mail(){
 	// 	echo var_dump($config['smtp_host']);
 	// 	return exit();

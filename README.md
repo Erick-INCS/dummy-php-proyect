@@ -21,3 +21,9 @@ N/A
 docker compose build &&\
 docker compose up -d
 ```
+## Instrucciones para ejecutar con MAMP (o similares)
+1. Copiar el directorio `www` en `htdocs`
+2. Agregar los valores correspondentes en los archivos:
+    - conexion.php
+    - conexion_mail.php
+    - globals.php
