@@ -79,7 +79,7 @@
 
                     <div class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
-                            <img class="rounded-circle me-lg-2"  alt="" style="width: 40px; height: 40px; background-color: var(--primary);">
+                            <img src="../css/wabece_logo.jpeg" class="rounded-circle me-lg-2"  alt="" style="width: 40px; height: 40px; background-color: var(--primary);">
                             <span class="d-none d-lg-inline-flex"><?=$APP_NAME?></span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">

@@ -15,6 +15,7 @@
                     <?php if($is_admin){ ?>
                     <!-- Para administrador -->
                         <a href="mostrarUsuarios.php" class="nav-item nav-link <?php if ($c=='Usuarios'){echo 'active';}?>"><i class="fa fa-users me-2"></i>Usuarios</a>
+                        <a href="m_historial.php" class="nav-item nav-link <?php if ($c=='Historial'){echo 'active';}?>"><i class="fa fa-history me-2"></i>Historial</a>
                     <?php } ?>
 
                     <!-- <a href="form.html" class="nav-item nav-link"><i class="fa fa-keyboard me-2"></i>Forms</a>

@@ -100,6 +100,6 @@
                         <div class="col-12">
                           <button type="submit" class="btn btn-primary">Guardar</button>
                           <a href="inicio.php" class="btn btn-secondary">Cancelar</a>
-                          <a href="../includes/eliminarMedicamento.php?idMedicamento=<?=$filaMedicamento['idMedicamento']?>" class="btn btn-danger">Eliminar</a>
+                          <a href="../includes/eliminarMedicamento.php?idMedicamento=<?=$filaMedicamento['idMedicamento']?>&idUsuario=<?=$user_id?>" class="btn btn-danger">Eliminar</a>
                         </div>
                       </form>

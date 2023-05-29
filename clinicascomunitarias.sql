@@ -76,6 +76,24 @@ INSERT INTO clinicatienemedicamento VALUES
 (DEFAULT, 1, 2, 15, "34", "Astrazenecaa", "2023-06-24")
 ;
 
+CREATE TABLE historial
+(
+	txid int not null primary key AUTO_INCREMENT,
+    idMedicamento int not null,
+	ingrediente_activo varchar(60),
+	marca varchar(60),
+	lote varchar(60),
+	controlado varchar(60),
+	dosis varchar(60),
+	presentacion varchar(60),
+	unidades varchar(60),
+	fecha_caducidad date,
+	via_administracion varchar(60),
+	usuario varchar(60),
+	timepo timestamp,
+	comentario varchar(500)
+);
+
 CREATE TABLE usuarios
 (
 	idUsuario int not null primary key AUTO_INCREMENT,
